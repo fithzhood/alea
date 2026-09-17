@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0d">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Alea</title>
+<link rel="icon" href="icone/alea.svg">
+<link rel="stylesheet" href="alea.css?v=1">
+<link rel="stylesheet" href="alea-temi.css?v=1">
+</head>
+<body data-tema="metal">
+
+<div class="sfondo" aria-hidden="true">
+  <div class="sfondo-decoro"></div>
+  <div class="sfondo-icona"></div>
+  <div class="sfondo-velo"></div>
+</div>
+
+<main class="app">
+
+  <header class="testa">
+    <h1 class="titolo"><span class="titolo-testo">Alea</span></h1>
+    <div class="testa-azioni">
+      <button class="icona" id="btnSuono" type="button" aria-label="Suono e vibrazione" title="Suono e vibrazione">
+        <svg viewBox="0 0 24 24" class="ico ico-on"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="onde" d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 5.5a8 8 0 0 1 0 13"/></svg>
+        <svg viewBox="0 0 24 24" class="ico ico-off"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="onde" d="M16 9l5 6M21 9l-5 6"/></svg>
+      </button>
+      <button class="icona" id="btnTema" type="button" aria-label="Cambia tema" title="Tema">
+        <svg viewBox="0 0 24 24" class="ico"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.2 0-1.1.9-2 2-2h2.3A4.7 4.7 0 0 0 22 9.8C22 6 17.5 3 12 3z"/><circle class="pieno" cx="7.5" cy="10.5" r="1.4"/><circle class="pieno" cx="11" cy="7" r="1.4"/><circle class="pieno" cx="15.5" cy="7.5" r="1.4"/></svg>
+      </button>
+      <button class="icona" id="btnInfo" type="button" aria-label="Informazioni" title="Informazioni">
+        <svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="arena" id="arena">
+    <div class="avviso" id="avviso" role="status" aria-live="polite"></div>
+    <div class="dado-wrap">
+      <div class="scintille" id="scintille" aria-hidden="true"></div>
+      <button class="dado" id="dado" type="button" aria-label="Lancia il dado">
+        <span class="dado-forma"></span>
+        <span class="dado-num" id="dadoNum">?</span>
+      </button>
+    </div>
+    <div class="esito" id="esito" aria-live="polite"></div>
+    <button class="lancia" id="btnLancia" type="button"><span id="lanciaTesto">Lancia</span></button>
+  </section>
+
+  <section class="facce">
+    <div class="facce-riga" id="facce" role="group" aria-label="Numero di facce">
+      <button type="button" data-f="4">d4</button>
+      <button type="button" data-f="6">d6</button>
+      <button type="button" data-f="8">d8</button>
+      <button type="button" data-f="10">d10</button>
+      <button type="button" data-f="12">d12</button>
+      <button type="button" data-f="20">d20</button>
+      <button type="button" data-f="100">d100</button>
+      <button type="button" id="btnAltro" class="altro">altro…</button>
+    </div>
+  </section>
+
+  <section class="ciclo" id="ciclo">
+    <div class="ciclo-riga">
+      <label class="interruttore">
+        <input type="checkbox" id="chkEscl">
+        <span class="cursore" aria-hidden="true"></span>
+        <span class="etichetta">Senza ripetizioni</span>
+      </label>
+      <span class="ciclo-conta" id="cicloConta"></span>
+    </div>
+    <div class="ciclo-griglia" id="cicloGriglia" aria-label="Valori già usciti in questo giro"></div>
+    <div class="ciclo-barra" id="cicloBarra"><i></i></div>
+  </section>
+
+  <section class="storico">
+    <div class="storico-testa">
+      <span class="storico-stat">Lanci <b id="storicoN">0</b></span>
+      <span class="storico-stat">Media <b id="storicoMedia">–</b></span>
+      <button type="button" class="pulisci" id="btnPulisci">Svuota</button>
+    </div>
+    <div class="storico-lista" id="storico"></div>
+  </section>
+
+  <div class="versione" id="versione"></div>
+</main>
+
+<!-- Scelta del tema -->
+<div class="velo" id="veloTema" hidden>
+  <div class="finestra finestra-temi" role="dialog" aria-label="Scegli il tema">
+    <div class="finestra-testa"><span>Tema</span><button type="button" class="chiudi" data-chiudi="veloTema" aria-label="Chiudi">×</button></div>
+    <div class="temi" id="temi"></div>
+  </div>
+</div>
+
+<!-- Numero di facce personalizzato -->
+<div class="velo" id="veloAltro" hidden>
+  <div class="finestra" role="dialog" aria-label="Valore massimo">
+    <div class="finestra-testa"><span>Valore massimo</span><button type="button" class="chiudi" data-chiudi="veloAltro" aria-label="Chiudi">×</button></div>
+    <p class="finestra-testo">Il dado va da 1 al numero che scegli.</p>
+    <form id="formAltro" class="form-altro">
+      <input type="number" id="inputAltro" inputmode="numeric" min="2" max="9999" step="1" placeholder="es. 30">
+      <button type="submit" class="conferma">Usa</button>
+    </form>
+    <div class="rapidi" id="rapidi">
+      <button type="button" data-f="2">d2</button>
+      <button type="button" data-f="3">d3</button>
+      <button type="button" data-f="30">d30</button>
+      <button type="button" data-f="50">d50</button>
+      <button type="button" data-f="1000">d1000</button>
+    </div>
+  </div>
+</div>
+
+<!-- Informazioni -->
+<div class="velo" id="veloInfo" hidden>
+  <div class="finestra" role="dialog" aria-label="Informazioni">
+    <div class="finestra-testa"><span>Alea</span><button type="button" class="chiudi" data-chiudi="veloInfo" aria-label="Chiudi">×</button></div>
+    <div class="finestra-testo scorrevole">
+      <p><b>Lancia</b> toccando il dado o il pulsante. Il numero di facce si sceglie sotto; con <b>altro…</b> vale qualunque massimo da 2 a 9999.</p>
+      <p><b>Senza ripetizioni</b>: un valore già uscito non ricompare finché non sono usciti tutti. A giro completo l'app ti avvisa e ricomincia. La griglia mostra i valori già usciti nel giro in corso.</p>
+      <p><b>Storico</b>: i lanci in ordine dal più recente. Il massimo e il minimo sono evidenziati. <b>Svuota</b> cancella lo storico e riparte con il giro.</p>
+      <p><b>Suono e vibrazione</b> sono spenti di serie: l'altoparlante in alto li accende.</p>
+      <p class="crediti">Font: Google Fonts (OFL). Suoni: Kenney (CC0). Icone: game-icons.net (CC BY 3.0) di Lorc, Delapouite e Faithtoken.</p>
+      <p class="crediti" id="infoVersione"></p>
+    </div>
+  </div>
+</div>
+
+<script src="alea.js?v=1"></script>
+</body>
+</html>
