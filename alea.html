@@ -7,8 +7,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>Alea</title>
 <link rel="icon" href="icone/alea.svg">
-<link rel="stylesheet" href="alea.css?v=1">
-<link rel="stylesheet" href="alea-temi.css?v=1">
+<link rel="stylesheet" href="alea.css?v=2">
+<link rel="stylesheet" href="alea-temi.css?v=2">
 </head>
 <body data-tema="metal">
 
@@ -17,6 +17,8 @@
   <div class="sfondo-icona"></div>
   <div class="sfondo-velo"></div>
 </div>
+
+<div class="avviso" id="avviso" role="status" aria-live="polite"></div>
 
 <main class="app">
 
@@ -37,11 +39,11 @@
   </header>
 
   <section class="arena" id="arena">
-    <div class="avviso" id="avviso" role="status" aria-live="polite"></div>
     <div class="dado-wrap">
       <div class="scintille" id="scintille" aria-hidden="true"></div>
       <button class="dado" id="dado" type="button" aria-label="Lancia il dado">
         <span class="dado-forma"></span>
+        <span class="dado-faccia"></span>
         <span class="dado-num" id="dadoNum">?</span>
       </button>
     </div>
@@ -58,7 +60,7 @@
       <button type="button" data-f="12">d12</button>
       <button type="button" data-f="20">d20</button>
       <button type="button" data-f="100">d100</button>
-      <button type="button" id="btnAltro" class="altro">altro…</button>
+      <button type="button" id="btnAltro" class="altro"><span class="altro-testo">altro…</span></button>
     </div>
   </section>
 
@@ -129,6 +131,6 @@
   </div>
 </div>
 
-<script src="alea.js?v=1"></script>
+<script src="alea.js?v=2"></script>
 </body>
 </html>

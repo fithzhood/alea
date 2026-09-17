@@ -103,13 +103,13 @@ body.suono-on #btnSuono { color: var(--accento); }
   position: relative; gap: 8px;
 }
 .avviso {
-  position: absolute; top: 0; left: 0; right: 0; z-index: 3;
-  margin: 0 auto; max-width: 100%;
+  position: fixed; top: max(env(safe-area-inset-top, 0px), 8px); left: 12px; right: 12px; z-index: 30;
+  margin: 0 auto; max-width: 536px;
   padding: 10px 14px; border-radius: var(--raggio, 10px);
   background: var(--avviso-sfondo, var(--accento)); color: var(--avviso-testo, #fff);
   border: var(--avviso-bordo, none);
   font-family: var(--font-body); font-size: .95rem; text-align: center;
-  opacity: 0; transform: translateY(-10px); pointer-events: none;
+  opacity: 0; transform: translateY(-16px); pointer-events: none;
   transition: opacity .25s ease, transform .25s ease;
   box-shadow: 0 8px 24px rgba(0,0,0,.35);
 }
@@ -120,7 +120,7 @@ body.suono-on #btnSuono { color: var(--accento); }
 
 .dado {
   /* --arena-h la scrive il JS (ResizeObserver): il dado si adatta allo spazio che resta davvero */
-  --dado-size: min(58vw, 30svh, calc(var(--arena-h, 400px) - 84px), 300px);
+  --dado-size: min(58vw, 30svh, calc(var(--arena-h, 400px) - 124px), 300px);
   width: var(--dado-size); height: var(--dado-size);
   position: relative; display: grid; place-items: center;
   filter: var(--dado-ombra, drop-shadow(0 12px 24px rgba(0,0,0,.5)));
@@ -154,14 +154,19 @@ body.suono-on #btnSuono { color: var(--accento); }
 .dado.cifre3 .dado-num { font-size: calc(var(--dado-size) * var(--numero-scala, .44) * .74); }
 .dado.cifre4 .dado-num { font-size: calc(var(--dado-size) * var(--numero-scala, .44) * .56); }
 
-/* Forme per numero di facce */
-.dado[data-forma="4"]  { --forma: polygon(50% 2%, 100% 96%, 0 96%); --numero-offset: 22%; --dado-bordo-spessore: 9px; }
+/* Forme per numero di facce: la sagoma del solido visto di fronte, e dentro la faccia con il numero */
+.dado-faccia {
+  position: absolute; inset: 0; display: none; pointer-events: none; z-index: 0;
+  background: var(--dado-faccia, rgba(255,255,255,.09)); clip-path: var(--faccia, none);
+}
+.dado[data-forma="4"]  { --forma: polygon(50% 6%, 100% 94%, 0 94%); --numero-offset: 22%; --dado-bordo-spessore: 9px; }
 .dado[data-forma="6"]  { --forma: none; }
-.dado[data-forma="8"]  { --forma: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
-.dado[data-forma="10"] { --forma: polygon(50% 0, 100% 42%, 50% 100%, 0 42%); }
-.dado[data-forma="12"] { --forma: polygon(50% 0, 100% 38%, 81% 100%, 19% 100%, 0 38%); --numero-offset: 6%; }
-.dado[data-forma="20"] { --forma: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.dado[data-forma="8"]  { --forma: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); --faccia: polygon(50% 11%, 89% 50%, 11% 50%); --numero-offset: -4%; }
+.dado[data-forma="10"] { --forma: polygon(50% 0, 100% 42%, 50% 100%, 0 42%); --faccia: polygon(50% 10%, 88% 42%, 50% 62%, 12% 42%); --numero-offset: -6%; }
+.dado[data-forma="12"] { --forma: polygon(50% 0, 79.4% 9.5%, 97.6% 34.5%, 97.6% 65.5%, 79.4% 90.5%, 50% 100%, 20.6% 90.5%, 2.4% 65.5%, 2.4% 34.5%, 20.6% 9.5%); --faccia: polygon(50% 20%, 78.5% 40.7%, 67.6% 74.3%, 32.4% 74.3%, 21.5% 40.7%); --numero-offset: 3%; }
+.dado[data-forma="20"] { --forma: polygon(50% 0, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); --faccia: polygon(50% 18%, 78% 66%, 22% 66%); --numero-offset: 2%; }
 .dado[data-forma="tondo"] { --forma: none; --dado-raggio: 50%; }
+.dado[data-forma="8"] .dado-faccia, .dado[data-forma="10"] .dado-faccia, .dado[data-forma="12"] .dado-faccia, .dado[data-forma="20"] .dado-faccia { display: block; }
 .dado[data-forma]:not([data-forma="6"]):not([data-forma="tondo"]) .dado-forma { border-radius: 0; }
 
 /* Animazioni del lancio */
@@ -199,9 +204,10 @@ body.suono-on #btnSuono { color: var(--accento); }
 .arena.minimo .dado { animation: tremito .4s ease-in-out; }
 
 .esito {
-  position: absolute; left: 0; right: 0; bottom: 60px; z-index: 2; pointer-events: none;
-  min-height: 1.4em; font-family: var(--font-display); font-weight: var(--display-peso, 400);
-  font-size: var(--esito-size, 1.25rem); letter-spacing: .04em; text-align: center;
+  flex: 0 0 auto; min-height: 1.6em; padding: 2px 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: var(--display-peso, 400);
+  font-size: var(--esito-size, 1.25rem); letter-spacing: .04em; text-align: center; line-height: 1.2;
   color: var(--esito-colore, var(--accento)); text-shadow: var(--titolo-ombra, none);
   opacity: 0; transform: scale(.8); transition: opacity .25s, transform .25s;
   text-transform: var(--titolo-caso, none);
@@ -221,27 +227,26 @@ body.suono-on #btnSuono { color: var(--accento); }
 .lancia:active { transform: translateY(2px) scale(.98); box-shadow: var(--btn-ombra-attivo, 0 2px 8px rgba(0,0,0,.35)); }
 .lancia:disabled { filter: saturate(.5) brightness(.8); }
 
-/* Selettore delle facce ------------------------------------------------ */
+/* Selettore delle facce: griglia su due righe, tutto visibile senza scorrere */
 .facce { flex: 0 0 auto; }
 .facce-riga {
-  display: flex; gap: 6px; overflow-x: auto; padding: 4px 2px;
-  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 2px;
 }
-.facce-riga::-webkit-scrollbar { display: none; }
 .facce-riga button {
-  flex: 0 0 auto; min-width: 48px; min-height: 42px; padding: 0 12px;
+  min-width: 0; min-height: 44px; padding: 0 4px;
   border-radius: var(--raggio-piccolo, 8px);
   background: var(--chip-sfondo, var(--pannello)); color: var(--chip-testo, var(--testo));
   border: var(--bordo); font-family: var(--font-display); font-weight: var(--display-peso, 400);
   font-size: var(--chip-size, .95rem); letter-spacing: .02em;
-  transition: transform .1s, background .2s, color .2s; white-space: nowrap;
+  transition: transform .1s, background .2s, color .2s; white-space: nowrap; overflow: hidden;
 }
 .facce-riga button:active { transform: scale(.94); }
 .facce-riga button.attivo {
   background: var(--chip-attivo-sfondo, var(--accento)); color: var(--chip-attivo-testo, var(--btn-testo, #fff));
   border: var(--chip-attivo-bordo, var(--bordo)); box-shadow: var(--chip-attivo-ombra, none);
 }
-.facce-riga .altro { font-family: var(--font-body); font-style: italic; }
+.facce-riga .altro:not(.attivo) { border-style: dashed; }
+.facce-riga .altro:not(.attivo) .altro-testo { font-family: var(--font-body); font-style: italic; font-size: .9em; }
 
 /* Ciclo senza ripetizioni ---------------------------------------------- */
 .ciclo {
@@ -264,7 +269,8 @@ body.suono-on #btnSuono { color: var(--accento); }
 }
 .interruttore input:checked + .cursore { background: var(--interruttore-on, var(--accento)); }
 .interruttore input:checked + .cursore::after { transform: translateX(20px); background: var(--interruttore-pomello-on, #fff); }
-.etichetta { font-family: var(--font-body); font-size: var(--etichetta-size, 1rem); white-space: nowrap; }
+.etichetta { font-family: var(--font-body); font-size: var(--etichetta-size, 1rem); line-height: 1.15; }
+.interruttore { min-width: 0; flex: 1 1 auto; }
 .ciclo-conta {
   font-family: var(--font-display); font-weight: var(--display-peso, 400); font-size: 1rem;
   color: var(--accento); white-space: nowrap; font-variant-numeric: tabular-nums;
@@ -322,7 +328,7 @@ body.suono-on #btnSuono { color: var(--accento); }
   content: "Nessun lancio ancora."; color: var(--testo-muto); font-size: .9rem; font-style: italic;
 }
 .storico-lista .chip {
-  display: inline-grid; place-items: center; min-width: 38px; height: 38px; padding: 0 9px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 38px; height: 38px; padding: 0 9px;
   border-radius: var(--chip-raggio, var(--raggio-piccolo, 8px));
   background: var(--chip-sfondo, rgba(255,255,255,.08)); color: var(--chip-testo, var(--testo));
   border: var(--chip-bordo, var(--bordo)); font-family: var(--font-numero, var(--font-display));
@@ -332,9 +338,8 @@ body.suono-on #btnSuono { color: var(--accento); }
 .storico-lista .chip.max { background: var(--chip-max-sfondo, var(--accento)); color: var(--chip-max-testo, var(--btn-testo, #fff)); border-color: transparent; }
 .storico-lista .chip.min { background: var(--chip-min-sfondo, rgba(0,0,0,.35)); color: var(--chip-min-testo, var(--testo-muto)); }
 .storico-lista .chip .d {
-  position: absolute; top: -6px; right: -4px; font-family: var(--font-body); font-size: .6rem;
+  font-family: var(--font-body); font-style: normal; font-size: .62rem; line-height: 1.4;
   background: var(--pannello); color: var(--testo-muto); padding: 0 4px; border-radius: 6px; border: var(--bordo);
-  line-height: 1.3;
 }
 @keyframes entra { 0% { transform: scale(.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 .storico-lista .chip.nuovo { animation: entra .3s cubic-bezier(.2,.9,.3,1.3); }
@@ -396,7 +401,7 @@ body.suono-on #btnSuono { color: var(--accento); }
   position: relative; min-height: 92px; border-radius: var(--raggio, 10px); overflow: hidden;
   background: var(--sfondo); background-image: var(--sfondo-decoro, none); color: var(--testo);
   border: var(--bordo); display: flex; flex-direction: column; justify-content: flex-end; gap: 4px;
-  padding: 10px 12px; text-align: left; transition: transform .12s ease;
+  padding: 10px 58px 10px 12px; text-align: left; transition: transform .12s ease;
   box-shadow: 0 4px 14px rgba(0,0,0,.3);
 }
 .tessera:active { transform: scale(.96); }
@@ -424,7 +429,7 @@ body.suono-on #btnSuono { color: var(--accento); }
   .testa { min-height: 44px; }
   .ciclo-griglia { max-height: 56px; }
   .storico { min-height: 70px; max-height: 26svh; }
-  .dado { --dado-size: min(52vw, 26svh, calc(var(--arena-h, 400px) - 72px), 260px); }
+  .dado { --dado-size: min(52vw, 26svh, calc(var(--arena-h, 400px) - 108px), 260px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .dado.rotola, .arena.critico .scintille i, .arena.critico .dado, .arena.minimo .dado { animation: none; }

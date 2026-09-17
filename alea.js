@@ -149,10 +149,8 @@
       if (on) trovato = true;
     }
     el.btnAltro.classList.toggle('attivo', !trovato);
-    el.btnAltro.textContent = trovato ? 'altro…' : 'd' + S.facce;
+    el.btnAltro.firstElementChild.textContent = trovato ? 'altro…' : 'd' + S.facce;
     el.dado.dataset.forma = formaPer(S.facce);
-    const attivo = el.facce.querySelector('.attivo');
-    if (attivo && attivo.scrollIntoView) attivo.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
   function renderCiclo() {
     el.chkEscl.checked = S.escl;
