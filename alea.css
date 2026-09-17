@@ -410,7 +410,7 @@ body.suono-on #btnSuono { color: var(--accento); }
   font-family: var(--font-display); font-weight: var(--display-peso, 400); font-size: 1.1rem;
   color: var(--titolo-colore, var(--accento)); text-shadow: var(--titolo-ombra, none);
   text-transform: var(--titolo-caso, none); letter-spacing: min(var(--titolo-spazio, .02em), .06em); line-height: 1.1;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 .tessera .tessera-sotto { font-family: var(--font-body); font-size: .74rem; color: var(--testo-muto); line-height: 1.2; }
 .tessera .tessera-dado {

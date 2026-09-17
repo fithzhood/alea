@@ -174,6 +174,7 @@
 [data-tema="arcade"] body, [data-tema="arcade"] { font-size: 1.15rem; }
 [data-tema="arcade"].tessera { font-size: 1rem; }
 [data-tema="arcade"].tessera .tessera-sotto { font-size: .95rem; }
+[data-tema="arcade"].tessera .tessera-nome { font-size: .9rem; }
 [data-tema="arcade"] .icona .ico { stroke-width: 2.4; }
 [data-tema="arcade"] .dado-forma, [data-tema="arcade"] .dado-forma::before { border-radius: 0 !important; }
 [data-tema="arcade"] .dado[data-forma="tondo"] .dado-forma { border-radius: 0 !important; }
@@ -217,7 +218,7 @@
   --tessera-dado-bordo: 2px solid #f5c542;
 }
 [data-tema="casino"] .titolo-testo { font-family: "Monoton", cursive; }
-[data-tema="casino"] .storico-lista .chip { min-width: 40px; width: 40px; padding: 0; }
+[data-tema="casino"] .storico-lista .chip { min-width: 40px; padding: 0 8px; }
 [data-tema="casino"] .storico-lista .chip.max { box-shadow: 0 0 10px rgba(245,197,66,.6); }
 
 /* ==========================================================================
