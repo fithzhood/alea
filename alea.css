@@ -77,7 +77,7 @@ input { font: inherit; }
   margin: 0; font-family: var(--font-display); font-weight: var(--display-peso, 400);
   font-size: var(--titolo-size, 2rem); letter-spacing: var(--titolo-spazio, .02em);
   color: var(--titolo-colore, var(--accento)); text-shadow: var(--titolo-ombra, none);
-  text-transform: var(--titolo-caso, none); line-height: 1;
+  text-transform: var(--nome-caso, var(--titolo-caso, none)); line-height: 1;
   display: flex; align-items: center; gap: .4em;
 }
 .titolo::before, .titolo::after { content: var(--titolo-orn, none); font-size: .55em; opacity: .8; }
@@ -367,7 +367,7 @@ body.suono-on #btnSuono { color: var(--accento); }
 .finestra-testa {
   display: flex; align-items: center; justify-content: space-between;
   font-family: var(--font-display); font-weight: var(--display-peso, 400); font-size: 1.3rem;
-  color: var(--titolo-colore, var(--accento)); text-transform: var(--titolo-caso, none);
+  color: var(--titolo-colore, var(--accento)); text-transform: var(--nome-caso, var(--titolo-caso, none));
 }
 .chiudi { width: 40px; height: 40px; border-radius: 50%; font-size: 1.6rem; line-height: 1; color: var(--testo-muto); font-family: system-ui, sans-serif; }
 .finestra-testo { margin: 0; font-size: .95rem; color: var(--testo); }

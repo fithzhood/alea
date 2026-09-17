@@ -215,7 +215,7 @@
   --interruttore-on: #f5c542; --interruttore-pomello-on: #3a2a05; --interruttore-off: rgba(0,0,0,.35);
   --avviso-sfondo: #f5c542; --avviso-testo: #3a2a05; --avviso-bordo: 2px solid #fff;
   --finestra-sfondo: #082c19; --scintilla: #f5c542; --pericolo: #c8102e; --esito-colore: #f5c542;
-  --tessera-dado-bordo: 2px solid #f5c542;
+  --tessera-dado-bordo: 2px solid #f5c542; --nome-caso: uppercase;
 }
 [data-tema="casino"] .titolo-testo { font-family: "Monoton", cursive; }
 [data-tema="casino"] .storico-lista .chip { min-width: 40px; padding: 0 8px; }
@@ -255,7 +255,7 @@
   --interruttore-on: #8b1e1e; --interruttore-off: rgba(90,58,30,.25); --interruttore-pomello: #fff4d6;
   --avviso-sfondo: #3b2412; --avviso-testo: #f5e6c4; --avviso-bordo: 2px solid #c8962e;
   --finestra-sfondo: #efdcb5; --scintilla: #c8962e; --pericolo: #8b1e1e; --esito-colore: #8b1e1e;
-  --tessera-dado-bordo: 2px solid #5a3a1e;
+  --tessera-dado-bordo: 2px solid #5a3a1e; --nome-caso: uppercase;
 }
 [data-tema="pirati"] .testa {
   background: linear-gradient(180deg, #6b4423, #4a2e15); border-radius: 8px; padding: 4px 10px;
@@ -337,7 +337,7 @@
   --interruttore-on: #ff5fa2; --interruttore-off: #ffc2df;
   --avviso-sfondo: #fff; --avviso-testo: #5a2a4e; --avviso-bordo: 3px solid #ff5fa2;
   --finestra-sfondo: #ffeef6; --scintilla: #ffd93d; --pericolo: #ff5fa2; --esito-colore: #3cc7a4;
-  --tessera-dado-bordo: 3px solid #fff;
+  --tessera-dado-bordo: 3px solid #fff; --nome-caso: uppercase;
 }
 [data-tema="candy"] .sfondo-decoro { background-size: auto, auto, auto, 26px 26px; }
 [data-tema="candy"] .dado[data-forma] .dado-forma { border-radius: 50% !important; --forma: none; }
