@@ -172,6 +172,8 @@
   --chip-size: .7rem; --etichetta-size: 1.25rem; --tessera-dado-bordo: 3px solid #fff;
 }
 [data-tema="arcade"] body, [data-tema="arcade"] { font-size: 1.15rem; }
+[data-tema="arcade"].tessera { font-size: 1rem; }
+[data-tema="arcade"].tessera .tessera-sotto { font-size: .95rem; }
 [data-tema="arcade"] .icona .ico { stroke-width: 2.4; }
 [data-tema="arcade"] .dado-forma, [data-tema="arcade"] .dado-forma::before { border-radius: 0 !important; }
 [data-tema="arcade"] .dado[data-forma="tondo"] .dado-forma { border-radius: 0 !important; }

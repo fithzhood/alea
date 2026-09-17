@@ -401,17 +401,18 @@ body.suono-on #btnSuono { color: var(--accento); }
   position: relative; min-height: 92px; border-radius: var(--raggio, 10px); overflow: hidden;
   background: var(--sfondo); background-image: var(--sfondo-decoro, none); color: var(--testo);
   border: var(--bordo); display: flex; flex-direction: column; justify-content: flex-end; gap: 4px;
-  padding: 10px 58px 10px 12px; text-align: left; transition: transform .12s ease;
-  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  padding: 54px 12px 10px 12px; text-align: left; transition: transform .12s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3); font-size: 1rem;
 }
 .tessera:active { transform: scale(.96); }
 .tessera.attiva { outline: 3px solid var(--accento); outline-offset: 2px; }
 .tessera .tessera-nome {
-  font-family: var(--font-display); font-weight: var(--display-peso, 400); font-size: 1.15rem;
+  font-family: var(--font-display); font-weight: var(--display-peso, 400); font-size: 1.1rem;
   color: var(--titolo-colore, var(--accento)); text-shadow: var(--titolo-ombra, none);
-  text-transform: var(--titolo-caso, none); letter-spacing: var(--titolo-spazio, .02em); line-height: 1.1;
+  text-transform: var(--titolo-caso, none); letter-spacing: min(var(--titolo-spazio, .02em), .06em); line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: clip;
 }
-.tessera .tessera-sotto { font-family: var(--font-body); font-size: .74rem; color: var(--testo-muto); }
+.tessera .tessera-sotto { font-family: var(--font-body); font-size: .74rem; color: var(--testo-muto); line-height: 1.2; }
 .tessera .tessera-dado {
   position: absolute; right: 10px; top: 10px; width: 40px; height: 40px;
   background: var(--dado-sfondo); border-radius: 22%; display: grid; place-items: center;
